@@ -206,7 +206,7 @@ const INITIAL_STATE: EODFormData = {
   sheetRows: buildInitialRows(SHEET_STAGES),
   sheetSummary: summarise(buildInitialRows(SHEET_STAGES)),
   sheetInsights: [''],
-  phoneSummary: { totalCallsToday: '', totalOutgoing: '', totalTalkTime: '' },
+  phoneSummary: { totalCallsToday: '', totalOutgoing: '', totalTalkTime: '', paidAppsToday: '' },
   overallSummary: '',
 }
 
@@ -288,7 +288,7 @@ export default function EODForm() {
           <div className="text-6xl mb-4">✅</div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">Report Sent!</h2>
           <p className="text-sm text-gray-500 mb-6">
-            Your EOD report has been emailed to Siddharth & Soma.
+            Your report has been sent.
           </p>
           <button onClick={handleReset} className="btn-primary mx-auto">
             Submit another report
@@ -356,7 +356,7 @@ export default function EODForm() {
         {/* ── 2. Phone summary ──────────────────────────────────────── */}
         <div className="section-card mb-0 h-full">
           <SectionHeading icon="📞">Phone summary</SectionHeading>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Total calls today">
               <input type="number" min={0} placeholder="121"
                 value={form.phoneSummary.totalCallsToday}
@@ -373,6 +373,12 @@ export default function EODForm() {
               <input type="text" placeholder="1h 12m 48s"
                 value={form.phoneSummary.totalTalkTime}
                 onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalTalkTime: e.target.value })}
+                className="input-field" />
+            </Field>
+            <Field label="Paid apps today">
+              <input type="number" min={0} placeholder="3"
+                value={form.phoneSummary.paidAppsToday}
+                onChange={e => setField('phoneSummary', { ...form.phoneSummary, paidAppsToday: e.target.value })}
                 className="input-field" />
             </Field>
           </div>

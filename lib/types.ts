@@ -17,6 +17,7 @@ export interface PhoneSummary {
   totalCallsToday: string
   totalOutgoing: string
   totalTalkTime: string
+  paidAppsToday: string
 }
 
 export interface EODFormData {

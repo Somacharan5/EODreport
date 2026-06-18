@@ -123,7 +123,7 @@ export function buildEmailHTML(data: EODFormData): string {
   const hasAppRows   = data.appRows.some(r => r.calls > 0)
   const hasLMRows    = data.lmRows.some(r => r.calls > 0)
   const hasSheetRows = data.sheetRows.some(r => r.calls > 0)
-  const hasPhone     = data.phoneSummary.totalCallsToday || data.phoneSummary.totalOutgoing || data.phoneSummary.totalTalkTime
+  const hasPhone     = data.phoneSummary.totalCallsToday || data.phoneSummary.totalOutgoing || data.phoneSummary.totalTalkTime || data.phoneSummary.paidAppsToday
   const appInsights  = data.appInsights.filter(Boolean)
   const lmInsights   = data.lmInsights.filter(Boolean)
   const sheetInsights = data.sheetInsights.filter(Boolean)
@@ -195,6 +195,12 @@ export function buildEmailHTML(data: EODFormData): string {
                         <td style="text-align:center;background:#fdf4ff;border:1px solid #e9d5ff;border-radius:10px;padding:12px 20px;">
                           <p style="margin:0;font-size:20px;font-weight:800;color:#7e22ce;">${data.phoneSummary.totalTalkTime}</p>
                           <p style="margin:2px 0 0;font-size:11px;color:#9333ea;font-weight:600;">Talk Time</p>
+                        </td>` : ''}
+                        ${data.phoneSummary.paidAppsToday ? `
+                        <td width="10"></td>
+                        <td style="text-align:center;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:12px 20px;">
+                          <p style="margin:0;font-size:20px;font-weight:800;color:#c2410c;">${data.phoneSummary.paidAppsToday}</p>
+                          <p style="margin:2px 0 0;font-size:11px;color:#ea580c;font-weight:600;">Paid Apps</p>
                         </td>` : ''}
                       </tr>
                     </table>
