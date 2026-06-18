@@ -170,7 +170,6 @@ export function buildEmailHTML(data: EODFormData): string {
                 <tr>
                   <td style="padding-bottom:24px;">
                     <span style="display:inline-block;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;margin-right:6px;">👤 ${data.counsellorName}</span>
-                    ${data.assignedBy ? `<span style="display:inline-block;background:#f0fdf4;color:#166534;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;">Assigned by: ${data.assignedBy}</span>` : ''}
                   </td>
                 </tr>
 

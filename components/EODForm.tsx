@@ -196,7 +196,6 @@ function InsightList({
 const INITIAL_STATE: EODFormData = {
   counsellorName: '',
   reportDate: todayISO(),
-  assignedBy: '',
   introText: '',
   appRows: buildInitialRows(APP_STAGES),
   appSummary: summarise(buildInitialRows(APP_STAGES)),
@@ -333,15 +332,6 @@ export default function EODForm() {
                 type="date"
                 value={form.reportDate}
                 onChange={e => setField('reportDate', e.target.value)}
-                className="input-field"
-              />
-            </Field>
-            <Field label="Leads assigned by">
-              <input
-                type="text"
-                placeholder="e.g. Soma"
-                value={form.assignedBy}
-                onChange={e => setField('assignedBy', e.target.value)}
                 className="input-field"
               />
             </Field>

@@ -23,7 +23,6 @@ export interface EODFormData {
   // Meta
   counsellorName: string
   reportDate: string
-  assignedBy: string
   introText: string
 
   // App Starts
