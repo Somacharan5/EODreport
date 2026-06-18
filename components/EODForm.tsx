@@ -84,7 +84,7 @@ function CallTable({ rows, onChange, col1 }: CallTableProps) {
           <tr className="bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wide">
             <th className="text-left px-3 py-2.5 border-b border-gray-100">{col1}</th>
             <th className="text-left px-3 py-2.5 border-b border-gray-100">Sub-stage</th>
-            <th className="text-right px-3 py-2.5 border-b border-gray-100 w-16">Calls</th>
+            <th className="text-right px-2 py-2.5 border-b border-gray-100 w-24">Calls</th>
           </tr>
         </thead>
         <tbody>
@@ -106,7 +106,7 @@ function CallTable({ rows, onChange, col1 }: CallTableProps) {
                         </td>
                       )}
                       <td className="px-3 py-2 text-gray-600">{row.subStage}</td>
-                      <td className="px-3 py-2">
+                      <td className="px-2 py-2">
                         <input
                           type="number"
                           min={0}
@@ -124,7 +124,7 @@ function CallTable({ rows, onChange, col1 }: CallTableProps) {
                   <td colSpan={2} className="px-3 py-1.5 text-xs font-semibold text-gray-400 text-right">
                     {group.stage} total
                   </td>
-                  <td className="px-3 py-1.5 text-right text-xs font-bold text-gray-700">{stageTotal}</td>
+                  <td className="px-2 py-1.5 text-right text-xs font-bold text-gray-700">{stageTotal}</td>
                 </tr>
               </Fragment>
             )
@@ -134,7 +134,7 @@ function CallTable({ rows, onChange, col1 }: CallTableProps) {
             <td colSpan={2} className="px-3 py-2.5 text-sm font-bold text-slate-200 text-right">
               Grand Total
             </td>
-            <td className="px-3 py-2.5 text-right text-sm font-extrabold text-white">{grandTotal}</td>
+            <td className="px-2 py-2.5 text-right text-sm font-extrabold text-white">{grandTotal}</td>
           </tr>
         </tbody>
       </table>
