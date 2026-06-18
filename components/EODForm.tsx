@@ -380,8 +380,9 @@ export default function EODForm() {
 
        </div>{/* end top row */}
 
-       {/* ── Calling sections: 3-up on desktop, 2-up on smaller laptops, stacked on mobile ── */}
-       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-start">
+       {/* ── Calling sections: 3-up on desktop, 2-up on smaller laptops, stacked on mobile ──
+            Identical stages + stretched cards keep the three tables perfectly aligned. */}
+       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
         {/* ── 3. App Starts ─────────────────────────────────────────── */}
         <div className="section-card mb-0 h-full">
