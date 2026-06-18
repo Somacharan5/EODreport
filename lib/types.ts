@@ -47,6 +47,21 @@ export interface EODFormData {
   overallSummary: string
 }
 
+// ── Counsellors ──────────────────────────────────────────────────────────────
+
+export const COUNSELLORS = [
+  'Jasmeet',
+  'Prerna',
+  'Komal',
+  'Dristi',
+  'Sanjana',
+  'Ishaan',
+  'Sunny',
+  'Aniket',
+  'Devam',
+  'Apraijita',
+]
+
 // ── Predefined stage/sub-stage definitions ──────────────────────────────────
 
 export const APP_STAGES: { stage: string; subStages: string[] }[] = [

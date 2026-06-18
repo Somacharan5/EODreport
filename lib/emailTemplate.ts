@@ -158,7 +158,7 @@ export function buildEmailHTML(data: EODFormData): string {
                 <!-- Greeting -->
                 <tr>
                   <td style="padding-bottom:20px;">
-                    <p style="margin:0;font-size:14px;color:#374151;">Hi Soniya,</p>
+                    <p style="margin:0;font-size:14px;color:#374151;">Hi Siddharth,</p>
                     <p style="margin:8px 0 0;font-size:14px;color:#374151;">
                       Sharing my <strong>End of Day</strong> report for <strong>${formattedDate}</strong>.
                     </p>
@@ -188,7 +188,7 @@ export function buildEmailHTML(data: EODFormData): string {
                         ${data.phoneSummary.totalOutgoing ? `
                         <td style="text-align:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 20px;margin-right:10px;">
                           <p style="margin:0;font-size:20px;font-weight:800;color:#15803d;">${data.phoneSummary.totalOutgoing}</p>
-                          <p style="margin:2px 0 0;font-size:11px;color:#16a34a;font-weight:600;">Outgoing</p>
+                          <p style="margin:2px 0 0;font-size:11px;color:#16a34a;font-weight:600;">Connected</p>
                         </td>
                         <td width="10"></td>` : ''}
                         ${data.phoneSummary.totalTalkTime ? `
@@ -315,6 +315,6 @@ export function buildEmailHTML(data: EODFormData): string {
 }
 
 export function buildEmailSubject(data: EODFormData): string {
-  const formattedDate = formatDate(data.reportDate)
-  return `EOD Report – ${data.counsellorName} – ${formattedDate}`
+  // Constant per counsellor so all their reports thread into one conversation.
+  return `EOD report ${data.counsellorName}`
 }

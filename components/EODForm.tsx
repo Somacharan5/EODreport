@@ -2,7 +2,7 @@
 
 import { useState, useCallback, Fragment } from 'react'
 import {
-  EODFormData, SubStageRow, APP_STAGES, LM_STAGES, SHEET_STAGES, STAGE_COLORS, CallSummary,
+  EODFormData, SubStageRow, APP_STAGES, LM_STAGES, SHEET_STAGES, STAGE_COLORS, CallSummary, COUNSELLORS,
 } from '@/lib/types'
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -322,13 +322,16 @@ export default function EODForm() {
           <SectionHeading icon="👤">Counsellor info</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Your name *">
-              <input
-                type="text"
-                placeholder="e.g. Prerna Kaushik"
+              <select
                 value={form.counsellorName}
                 onChange={e => setField('counsellorName', e.target.value)}
                 className="input-field"
-              />
+              >
+                <option value="" disabled>Select your name</option>
+                {COUNSELLORS.map(name => (
+                  <option key={name} value={name}>{name}</option>
+                ))}
+              </select>
             </Field>
             <Field label="Report date *">
               <input
@@ -360,7 +363,7 @@ export default function EODForm() {
                 onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalCallsToday: e.target.value })}
                 className="input-field" />
             </Field>
-            <Field label="Total outgoing">
+            <Field label="Total connected calls">
               <input type="number" min={0} placeholder="110"
                 value={form.phoneSummary.totalOutgoing}
                 onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalOutgoing: e.target.value })}
