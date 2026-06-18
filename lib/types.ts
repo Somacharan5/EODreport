@@ -29,15 +29,17 @@ export interface EODFormData {
   // App Starts
   appRows: SubStageRow[]
   appSummary: CallSummary
-  appLeadNote: string
-  appLeadType: string
-  appLeadSubstage: string
   appInsights: string[]
 
   // Lead Manager
   lmRows: SubStageRow[]
   lmSummary: CallSummary
   lmInsights: string[]
+
+  // Sheet Callings
+  sheetRows: SubStageRow[]
+  sheetSummary: CallSummary
+  sheetInsights: string[]
 
   // Phone stats
   phoneSummary: PhoneSummary
@@ -75,6 +77,35 @@ export const LM_STAGES: { stage: string; subStages: string[] }[] = [
   {
     stage: 'No Contact Established',
     subStages: ['DNP', 'DNP2', 'Dead', 'Call later', 'Not Reachable'],
+  },
+  {
+    stage: 'Not Eligible',
+    subStages: ['In Graduation below 3rd year', 'Language Barrier'],
+  },
+  {
+    stage: 'Not Interested',
+    subStages: [
+      'Disconnected on Hearing MU',
+      'Applied By Mistake',
+      'Looking for different course',
+      'Parental Issues',
+      'Other - Refer Comments',
+    ],
+  },
+  {
+    stage: 'Duplicate Lead',
+    subStages: ['Duplicate lead'],
+  },
+]
+
+export const SHEET_STAGES: { stage: string; subStages: string[] }[] = [
+  {
+    stage: 'Counseled',
+    subStages: ['Cold', 'Hot', 'Warm'],
+  },
+  {
+    stage: 'No Contact Established',
+    subStages: ['DNP', 'DNP2', 'Dead', 'Call later', 'Not Reachable', 'Incorrect Number'],
   },
   {
     stage: 'Not Eligible',

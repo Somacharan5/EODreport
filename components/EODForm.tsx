@@ -2,7 +2,7 @@
 
 import { useState, useCallback, Fragment } from 'react'
 import {
-  EODFormData, SubStageRow, APP_STAGES, LM_STAGES, STAGE_COLORS, CallSummary,
+  EODFormData, SubStageRow, APP_STAGES, LM_STAGES, SHEET_STAGES, STAGE_COLORS, CallSummary,
 } from '@/lib/types'
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -200,13 +200,13 @@ const INITIAL_STATE: EODFormData = {
   introText: '',
   appRows: buildInitialRows(APP_STAGES),
   appSummary: summarise(buildInitialRows(APP_STAGES)),
-  appLeadNote: '',
-  appLeadType: 'Cold Counselling',
-  appLeadSubstage: 'App Starts',
   appInsights: [''],
   lmRows: buildInitialRows(LM_STAGES),
   lmSummary: summarise(buildInitialRows(LM_STAGES)),
   lmInsights: [''],
+  sheetRows: buildInitialRows(SHEET_STAGES),
+  sheetSummary: summarise(buildInitialRows(SHEET_STAGES)),
+  sheetInsights: [''],
   phoneSummary: { totalCallsToday: '', totalOutgoing: '', totalTalkTime: '' },
   overallSummary: '',
 }
@@ -238,6 +238,14 @@ export default function EODForm() {
     setForm(prev => {
       const rows = prev.lmRows.map((r, i) => (i === index ? { ...r, calls: value } : r))
       return { ...prev, lmRows: rows, lmSummary: summarise(rows) }
+    })
+  }, [])
+
+  // Sheet Callings row update
+  const updateSheetRow = useCallback((index: number, value: number) => {
+    setForm(prev => {
+      const rows = prev.sheetRows.map((r, i) => (i === index ? { ...r, calls: value } : r))
+      return { ...prev, sheetRows: rows, sheetSummary: summarise(rows) }
     })
   }, [])
 
@@ -338,7 +346,7 @@ export default function EODForm() {
               />
             </Field>
           </div>
-          <Field label="Brief intro" className="mt-4">
+          <Field label="Lead sets worked on" className="mt-4">
             <textarea
               rows={2}
               placeholder="e.g. Today, I worked on Application Manager and Lead Manager leads assigned by Soma."
@@ -349,65 +357,35 @@ export default function EODForm() {
           </Field>
         </div>
 
-        {/* ── 2. App Starts ─────────────────────────────────────────── */}
+        {/* ── 2. Phone summary ──────────────────────────────────────── */}
+        <div className="section-card">
+          <SectionHeading icon="📞">Phone summary</SectionHeading>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Field label="Total calls today">
+              <input type="number" min={0} placeholder="121"
+                value={form.phoneSummary.totalCallsToday}
+                onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalCallsToday: e.target.value })}
+                className="input-field" />
+            </Field>
+            <Field label="Total outgoing">
+              <input type="number" min={0} placeholder="110"
+                value={form.phoneSummary.totalOutgoing}
+                onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalOutgoing: e.target.value })}
+                className="input-field" />
+            </Field>
+            <Field label="Talk time">
+              <input type="text" placeholder="1h 12m 48s"
+                value={form.phoneSummary.totalTalkTime}
+                onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalTalkTime: e.target.value })}
+                className="input-field" />
+            </Field>
+          </div>
+        </div>
+
+        {/* ── 3. App Starts ─────────────────────────────────────────── */}
         <div className="section-card">
           <SectionHeading icon="📲">App Starts Calling</SectionHeading>
           <CallTable rows={form.appRows} onChange={updateAppRow} col1="Application Stage" />
-
-          <div className="mt-5 pt-5 border-t border-gray-100">
-            <SectionHeading icon="📞">Phone summary</SectionHeading>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Field label="Total calls today">
-                <input type="number" min={0} placeholder="121"
-                  value={form.phoneSummary.totalCallsToday}
-                  onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalCallsToday: e.target.value })}
-                  className="input-field" />
-              </Field>
-              <Field label="Total outgoing">
-                <input type="number" min={0} placeholder="110"
-                  value={form.phoneSummary.totalOutgoing}
-                  onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalOutgoing: e.target.value })}
-                  className="input-field" />
-              </Field>
-              <Field label="Talk time">
-                <input type="text" placeholder="1h 12m 48s"
-                  value={form.phoneSummary.totalTalkTime}
-                  onChange={e => setField('phoneSummary', { ...form.phoneSummary, totalTalkTime: e.target.value })}
-                  className="input-field" />
-              </Field>
-            </div>
-          </div>
-
-          <div className="mt-5 pt-5 border-t border-gray-100">
-            <SectionHeading icon="🌟">Counselled lead note</SectionHeading>
-            <div className="grid grid-cols-2 gap-4 mb-3">
-              <Field label="Lead type">
-                <select value={form.appLeadType}
-                  onChange={e => setField('appLeadType', e.target.value)}
-                  className="input-field">
-                  <option>Cold Counselling</option>
-                  <option>Warm Counselling</option>
-                  <option>Hot Counselling</option>
-                  <option>Follow-up</option>
-                </select>
-              </Field>
-              <Field label="Sub-stage">
-                <select value={form.appLeadSubstage}
-                  onChange={e => setField('appLeadSubstage', e.target.value)}
-                  className="input-field">
-                  <option>App Starts</option>
-                  <option>Lead Manager</option>
-                </select>
-              </Field>
-            </div>
-            <Field label="Interaction note">
-              <textarea rows={3}
-                placeholder="e.g. Candidate has completed Engineering. Initially mentioned concerns regarding loan eligibility…"
-                value={form.appLeadNote}
-                onChange={e => setField('appLeadNote', e.target.value)}
-                className="input-field resize-none" />
-            </Field>
-          </div>
 
           <div className="mt-5 pt-5 border-t border-gray-100">
             <SectionHeading icon="💡">App Starts — Key Insights</SectionHeading>
@@ -419,7 +397,7 @@ export default function EODForm() {
           </div>
         </div>
 
-        {/* ── 3. Lead Manager ───────────────────────────────────────── */}
+        {/* ── 4. Lead Manager ───────────────────────────────────────── */}
         <div className="section-card">
           <SectionHeading icon="📋">Lead Manager Calling</SectionHeading>
           <CallTable rows={form.lmRows} onChange={updateLMRow} col1="Lead Stage" />
@@ -434,10 +412,25 @@ export default function EODForm() {
           </div>
         </div>
 
-        {/* ── 4. Overall Summary ────────────────────────────────────── */}
+        {/* ── 5. Sheet Callings ─────────────────────────────────────── */}
         <div className="section-card">
-          <SectionHeading icon="📝">Overall summary</SectionHeading>
-          <Field label="Closing paragraph">
+          <SectionHeading icon="📄">Sheet Callings</SectionHeading>
+          <CallTable rows={form.sheetRows} onChange={updateSheetRow} col1="Lead Stage" />
+
+          <div className="mt-5 pt-5 border-t border-gray-100">
+            <SectionHeading icon="💡">Sheet Callings — Key Insights</SectionHeading>
+            <InsightList
+              insights={form.sheetInsights}
+              onChange={v => setField('sheetInsights', v)}
+              placeholder="e.g. Most sheet leads were unreachable or already counselled earlier"
+            />
+          </div>
+        </div>
+
+        {/* ── 6. Any feedback ───────────────────────────────────────── */}
+        <div className="section-card">
+          <SectionHeading icon="📝">Any feedback</SectionHeading>
+          <Field label="Any feedback">
             <textarea rows={3}
               placeholder="e.g. The day was primarily focused on follow-up activities across App Starts and Lead Manager…"
               value={form.overallSummary}

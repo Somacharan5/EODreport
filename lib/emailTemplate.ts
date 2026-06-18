@@ -122,9 +122,11 @@ export function buildEmailHTML(data: EODFormData): string {
   const formattedDate = formatDate(data.reportDate)
   const hasAppRows   = data.appRows.some(r => r.calls > 0)
   const hasLMRows    = data.lmRows.some(r => r.calls > 0)
+  const hasSheetRows = data.sheetRows.some(r => r.calls > 0)
   const hasPhone     = data.phoneSummary.totalCallsToday || data.phoneSummary.totalOutgoing || data.phoneSummary.totalTalkTime
   const appInsights  = data.appInsights.filter(Boolean)
   const lmInsights   = data.lmInsights.filter(Boolean)
+  const sheetInsights = data.sheetInsights.filter(Boolean)
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -172,49 +174,6 @@ export function buildEmailHTML(data: EODFormData): string {
                   </td>
                 </tr>
 
-                ${hasAppRows ? `
-                ${sectionDivider('App Starts Calling')}
-                <tr><td>${buildTable(data.appRows, 'Application Stage', 'Application Sub Stage')}</td></tr>
-                <tr>
-                  <td style="padding-bottom:12px;">
-                    <ul style="margin:0;padding-left:20px;font-size:13px;line-height:1.8;">
-                      <li style="color:#374151;"><strong>Counselled:</strong> ${data.appSummary.counseled}</li>
-                      <li style="color:#374151;"><strong>No Contact Established:</strong> ${data.appSummary.noContactEstablished}</li>
-                      <li style="color:#374151;"><strong>Not Eligible:</strong> ${data.appSummary.notEligible}</li>
-                      <li style="color:#374151;"><strong>Not Interested:</strong> ${data.appSummary.notInterested}</li>
-                      <li style="color:#111827;"><strong>Total Calls Made:</strong> ${data.appSummary.grandTotal}</li>
-                    </ul>
-                  </td>
-                </tr>` : ''}
-
-                ${data.appLeadNote ? `
-                <tr>
-                  <td style="padding:12px 0 20px;">
-                    <div style="background:#fffbeb;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:12px 16px;">
-                      <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.04em;">
-                        Counselled Lead — ${data.appLeadSubstage} (${data.appLeadType})
-                      </p>
-                      <p style="margin:0;font-size:13px;color:#374151;line-height:1.6;">${data.appLeadNote}</p>
-                    </div>
-                  </td>
-                </tr>` : ''}
-
-                ${hasLMRows ? `
-                ${sectionDivider('Lead Manager Calling')}
-                <tr><td>${buildTable(data.lmRows, 'Lead Stage', 'Lead Sub Stage')}</td></tr>
-                <tr>
-                  <td style="padding-bottom:12px;">
-                    <ul style="margin:0;padding-left:20px;font-size:13px;line-height:1.8;">
-                      <li style="color:#374151;"><strong>Counselled Follow ups:</strong> ${data.lmSummary.counseled}</li>
-                      <li style="color:#374151;"><strong>No Contact Established:</strong> ${data.lmSummary.noContactEstablished}</li>
-                      <li style="color:#374151;"><strong>Not Eligible:</strong> ${data.lmSummary.notEligible}</li>
-                      <li style="color:#374151;"><strong>Not Interested:</strong> ${data.lmSummary.notInterested}</li>
-                      ${data.lmSummary.duplicateLeads ? `<li style="color:#374151;"><strong>Duplicate Leads:</strong> ${data.lmSummary.duplicateLeads}</li>` : ''}
-                      <li style="color:#111827;"><strong>Total Calls Made:</strong> ${data.lmSummary.grandTotal}</li>
-                    </ul>
-                  </td>
-                </tr>` : ''}
-
                 ${hasPhone ? `
                 ${sectionDivider('Call Statistics')}
                 <tr>
@@ -243,6 +202,53 @@ export function buildEmailHTML(data: EODFormData): string {
                   </td>
                 </tr>` : ''}
 
+                ${hasAppRows ? `
+                ${sectionDivider('App Starts Calling')}
+                <tr><td>${buildTable(data.appRows, 'Application Stage', 'Application Sub Stage')}</td></tr>
+                <tr>
+                  <td style="padding-bottom:12px;">
+                    <ul style="margin:0;padding-left:20px;font-size:13px;line-height:1.8;">
+                      <li style="color:#374151;"><strong>Counselled:</strong> ${data.appSummary.counseled}</li>
+                      <li style="color:#374151;"><strong>No Contact Established:</strong> ${data.appSummary.noContactEstablished}</li>
+                      <li style="color:#374151;"><strong>Not Eligible:</strong> ${data.appSummary.notEligible}</li>
+                      <li style="color:#374151;"><strong>Not Interested:</strong> ${data.appSummary.notInterested}</li>
+                      <li style="color:#111827;"><strong>Total Calls Made:</strong> ${data.appSummary.grandTotal}</li>
+                    </ul>
+                  </td>
+                </tr>` : ''}
+
+                ${hasLMRows ? `
+                ${sectionDivider('Lead Manager Calling')}
+                <tr><td>${buildTable(data.lmRows, 'Lead Stage', 'Lead Sub Stage')}</td></tr>
+                <tr>
+                  <td style="padding-bottom:12px;">
+                    <ul style="margin:0;padding-left:20px;font-size:13px;line-height:1.8;">
+                      <li style="color:#374151;"><strong>Counselled Follow ups:</strong> ${data.lmSummary.counseled}</li>
+                      <li style="color:#374151;"><strong>No Contact Established:</strong> ${data.lmSummary.noContactEstablished}</li>
+                      <li style="color:#374151;"><strong>Not Eligible:</strong> ${data.lmSummary.notEligible}</li>
+                      <li style="color:#374151;"><strong>Not Interested:</strong> ${data.lmSummary.notInterested}</li>
+                      ${data.lmSummary.duplicateLeads ? `<li style="color:#374151;"><strong>Duplicate Leads:</strong> ${data.lmSummary.duplicateLeads}</li>` : ''}
+                      <li style="color:#111827;"><strong>Total Calls Made:</strong> ${data.lmSummary.grandTotal}</li>
+                    </ul>
+                  </td>
+                </tr>` : ''}
+
+                ${hasSheetRows ? `
+                ${sectionDivider('Sheet Callings')}
+                <tr><td>${buildTable(data.sheetRows, 'Lead Stage', 'Lead Sub Stage')}</td></tr>
+                <tr>
+                  <td style="padding-bottom:12px;">
+                    <ul style="margin:0;padding-left:20px;font-size:13px;line-height:1.8;">
+                      <li style="color:#374151;"><strong>Counselled:</strong> ${data.sheetSummary.counseled}</li>
+                      <li style="color:#374151;"><strong>No Contact Established:</strong> ${data.sheetSummary.noContactEstablished}</li>
+                      <li style="color:#374151;"><strong>Not Eligible:</strong> ${data.sheetSummary.notEligible}</li>
+                      <li style="color:#374151;"><strong>Not Interested:</strong> ${data.sheetSummary.notInterested}</li>
+                      ${data.sheetSummary.duplicateLeads ? `<li style="color:#374151;"><strong>Duplicate Leads:</strong> ${data.sheetSummary.duplicateLeads}</li>` : ''}
+                      <li style="color:#111827;"><strong>Total Calls Made:</strong> ${data.sheetSummary.grandTotal}</li>
+                    </ul>
+                  </td>
+                </tr>` : ''}
+
                 ${appInsights.length ? `
                 ${sectionDivider('App Starts — Key Insights')}
                 <tr>
@@ -259,6 +265,16 @@ export function buildEmailHTML(data: EODFormData): string {
                   <td style="padding-bottom:16px;">
                     <ul style="margin:0;padding-left:20px;font-size:13px;line-height:1.9;">
                       ${bulletList(lmInsights)}
+                    </ul>
+                  </td>
+                </tr>` : ''}
+
+                ${sheetInsights.length ? `
+                ${sectionDivider('Sheet Callings — Key Insights')}
+                <tr>
+                  <td style="padding-bottom:16px;">
+                    <ul style="margin:0;padding-left:20px;font-size:13px;line-height:1.9;">
+                      ${bulletList(sheetInsights)}
                     </ul>
                   </td>
                 </tr>` : ''}
