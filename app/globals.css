@@ -28,7 +28,7 @@
     @apply text-sm font-semibold text-gray-800 mb-4 flex items-center gap-2;
   }
   .stage-pill {
-    @apply inline-block text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap;
+    @apply inline-block text-xs font-semibold px-2 py-0.5 rounded-full leading-snug;
   }
   .btn-primary {
     @apply inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-sm

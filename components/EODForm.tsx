@@ -82,9 +82,9 @@ function CallTable({ rows, onChange, col1 }: CallTableProps) {
       <table className="w-full text-sm border-collapse">
         <thead>
           <tr className="bg-gray-50 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-            <th className="text-left px-4 py-2.5 border-b border-gray-100">{col1}</th>
-            <th className="text-left px-4 py-2.5 border-b border-gray-100">Sub-stage</th>
-            <th className="text-right px-4 py-2.5 border-b border-gray-100 w-24">Calls</th>
+            <th className="text-left px-3 py-2.5 border-b border-gray-100">{col1}</th>
+            <th className="text-left px-3 py-2.5 border-b border-gray-100">Sub-stage</th>
+            <th className="text-right px-3 py-2.5 border-b border-gray-100 w-16">Calls</th>
           </tr>
         </thead>
         <tbody>
@@ -99,14 +99,14 @@ function CallTable({ rows, onChange, col1 }: CallTableProps) {
                     <tr key={rowIdx} className="border-b border-gray-50 hover:bg-gray-50/60 transition-colors">
                       {posInGroup === 0 && (
                         <td
-                          className="px-4 py-2 align-middle"
+                          className="px-3 py-2 align-middle"
                           rowSpan={group.indices.length}
                         >
                           <span className={`stage-pill ${colorClass}`}>{group.stage}</span>
                         </td>
                       )}
-                      <td className="px-4 py-2 text-gray-600">{row.subStage}</td>
-                      <td className="px-4 py-2">
+                      <td className="px-3 py-2 text-gray-600">{row.subStage}</td>
+                      <td className="px-3 py-2">
                         <input
                           type="number"
                           min={0}
@@ -121,20 +121,20 @@ function CallTable({ rows, onChange, col1 }: CallTableProps) {
                 })}
                 {/* Stage subtotal */}
                 <tr className="bg-gray-50/80 border-b border-gray-100">
-                  <td colSpan={2} className="px-4 py-1.5 text-xs font-semibold text-gray-400 text-right">
+                  <td colSpan={2} className="px-3 py-1.5 text-xs font-semibold text-gray-400 text-right">
                     {group.stage} total
                   </td>
-                  <td className="px-4 py-1.5 text-right text-xs font-bold text-gray-700">{stageTotal}</td>
+                  <td className="px-3 py-1.5 text-right text-xs font-bold text-gray-700">{stageTotal}</td>
                 </tr>
               </Fragment>
             )
           })}
           {/* Grand total */}
           <tr className="bg-slate-800">
-            <td colSpan={2} className="px-4 py-2.5 text-sm font-bold text-slate-200 text-right">
+            <td colSpan={2} className="px-3 py-2.5 text-sm font-bold text-slate-200 text-right">
               Grand Total
             </td>
-            <td className="px-4 py-2.5 text-right text-sm font-extrabold text-white">{grandTotal}</td>
+            <td className="px-3 py-2.5 text-right text-sm font-extrabold text-white">{grandTotal}</td>
           </tr>
         </tbody>
       </table>
@@ -301,10 +301,7 @@ export default function EODForm() {
   // ── main form ───────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen py-8 px-4">
-      <div className="max-w-6xl mx-auto">
-
-       {/* ── Narrow top group ──────────────────────────────────────── */}
-       <div className="max-w-2xl mx-auto">
+      <div className="max-w-7xl mx-auto">
 
         {/* Page header */}
         <div className="mb-6">
@@ -317,8 +314,11 @@ export default function EODForm() {
           </p>
         </div>
 
+       {/* ── Top row: Counsellor info + Phone summary side by side ──── */}
+       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start mb-5">
+
         {/* ── 1. Counsellor Info ─────────────────────────────────────── */}
-        <div className="section-card">
+        <div className="section-card mb-0 h-full">
           <SectionHeading icon="👤">Counsellor info</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Your name *">
@@ -351,7 +351,7 @@ export default function EODForm() {
         </div>
 
         {/* ── 2. Phone summary ──────────────────────────────────────── */}
-        <div className="section-card">
+        <div className="section-card mb-0 h-full">
           <SectionHeading icon="📞">Phone summary</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Field label="Total calls today">
@@ -375,10 +375,10 @@ export default function EODForm() {
           </div>
         </div>
 
-       </div>{/* end narrow top group */}
+       </div>{/* end top row */}
 
-       {/* ── Calling sections: 3 columns on laptop, stacked on mobile ── */}
-       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+       {/* ── Calling sections: 3-up on desktop, 2-up on smaller laptops, stacked on mobile ── */}
+       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-start">
 
         {/* ── 3. App Starts ─────────────────────────────────────────── */}
         <div className="section-card mb-0 h-full">
@@ -427,8 +427,8 @@ export default function EODForm() {
 
        </div>{/* end calling grid */}
 
-       {/* ── Narrow bottom group ───────────────────────────────────── */}
-       <div className="max-w-2xl mx-auto mt-5">
+       {/* ── Bottom group ──────────────────────────────────────────── */}
+       <div className="mt-5">
 
         {/* ── 6. Any feedback ───────────────────────────────────────── */}
         <div className="section-card">
