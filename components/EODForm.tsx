@@ -301,7 +301,10 @@ export default function EODForm() {
   // ── main form ───────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen py-8 px-4">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-6xl mx-auto">
+
+       {/* ── Narrow top group ──────────────────────────────────────── */}
+       <div className="max-w-2xl mx-auto">
 
         {/* Page header */}
         <div className="mb-6">
@@ -372,8 +375,13 @@ export default function EODForm() {
           </div>
         </div>
 
+       </div>{/* end narrow top group */}
+
+       {/* ── Calling sections: 3 columns on laptop, stacked on mobile ── */}
+       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+
         {/* ── 3. App Starts ─────────────────────────────────────────── */}
-        <div className="section-card">
+        <div className="section-card mb-0 h-full">
           <SectionHeading icon="📲">App Starts Calling</SectionHeading>
           <CallTable rows={form.appRows} onChange={updateAppRow} col1="Application Stage" />
 
@@ -388,7 +396,7 @@ export default function EODForm() {
         </div>
 
         {/* ── 4. Lead Manager ───────────────────────────────────────── */}
-        <div className="section-card">
+        <div className="section-card mb-0 h-full">
           <SectionHeading icon="📋">Lead Manager Calling</SectionHeading>
           <CallTable rows={form.lmRows} onChange={updateLMRow} col1="Lead Stage" />
 
@@ -403,7 +411,7 @@ export default function EODForm() {
         </div>
 
         {/* ── 5. Sheet Callings ─────────────────────────────────────── */}
-        <div className="section-card">
+        <div className="section-card mb-0 h-full">
           <SectionHeading icon="📄">Sheet Callings</SectionHeading>
           <CallTable rows={form.sheetRows} onChange={updateSheetRow} col1="Lead Stage" />
 
@@ -416,6 +424,11 @@ export default function EODForm() {
             />
           </div>
         </div>
+
+       </div>{/* end calling grid */}
+
+       {/* ── Narrow bottom group ───────────────────────────────────── */}
+       <div className="max-w-2xl mx-auto mt-5">
 
         {/* ── 6. Any feedback ───────────────────────────────────────── */}
         <div className="section-card">
@@ -455,6 +468,8 @@ export default function EODForm() {
             Clear form
           </button>
         </div>
+
+       </div>{/* end narrow bottom group */}
 
       </div>
     </div>
