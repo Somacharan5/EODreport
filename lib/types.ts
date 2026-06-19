@@ -61,7 +61,24 @@ export const COUNSELLORS = [
   'Aniket',
   'Devam',
   'Aprajita',
+  'Simran',
 ]
+
+// Each counsellor is also added as a recipient so they receive their own
+// EOD report thread / mail trail.
+export const COUNSELLOR_EMAILS: Record<string, string> = {
+  Jasmeet:  'jasmeet.kaur@mastersunion.org',
+  Prerna:   'prerna.kaushik@mastersunion.org',
+  Komal:    'komal.pandey@mastersunion.org',
+  Drishti:  'drishti.majumdar@mastersunion.org',
+  Sanjana:  'sanjana.deshwal_sbmc2@mastercamp.org',
+  Ishaan:   'ishan.ali1@mastersunion.org',
+  Sunny:    'sunny.singh@mastersunion.org',
+  Aniket:   'aniket.singh1@mastersunion.org',
+  Devam:    'devam.chandna@mastersunion.org',
+  Aprajita: 'aprajita.mitra@mastersunion.org',
+  Simran:   'simran.mishra@mastersunion.org',
+}
 
 // ── Predefined stage/sub-stage definitions ──────────────────────────────────
 // All three calling tables (App Starts, Lead Manager, Sheet Callings) share the

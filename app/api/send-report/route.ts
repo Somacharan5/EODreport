@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { EODFormData } from '@/lib/types'
+import { EODFormData, COUNSELLOR_EMAILS } from '@/lib/types'
 import { buildEmailHTML, buildEmailSubject } from '@/lib/emailTemplate'
 import { sendViaGmail } from '@/lib/gmail'
 
@@ -23,8 +23,14 @@ export async function POST(req: NextRequest) {
     const htmlBody = buildEmailHTML(data)
     const subject  = buildEmailSubject(data)
 
+    // Also send to the counsellor's own inbox so they keep their mail trail.
+    const counsellorEmail = COUNSELLOR_EMAILS[data.counsellorName.trim()]
+    const recipients = counsellorEmail
+      ? [...RECIPIENTS, counsellorEmail]
+      : RECIPIENTS
+
     await sendViaGmail({
-      to: RECIPIENTS,
+      to: recipients,
       subject,
       htmlBody,
       senderName: `${data.counsellorName} (EOD Report)`,
