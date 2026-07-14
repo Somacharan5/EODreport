@@ -62,6 +62,7 @@ export const COUNSELLORS = [
   'Devam',
   'Aprajita',
   'Simran',
+  'Harsha',
 ]
 
 // Each counsellor is also added as a recipient so they receive their own
@@ -78,6 +79,7 @@ export const COUNSELLOR_EMAILS: Record<string, string> = {
   Devam:    'devam.chandna@mastersunion.org',
   Aprajita: 'aprajita.mitra@mastersunion.org',
   Simran:   'simran.mishra@mastersunion.org',
+  Harsha:   'harsha.pirupilli@mastersunion.org',
 }
 
 // ── Predefined stage/sub-stage definitions ──────────────────────────────────
